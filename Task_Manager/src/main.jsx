@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { ThemeContextProvider } from './contexts/ThemeContext.jsx'
+import { TaskIndexContextProvider } from './contexts/TaskIndexContext.jsx'
 import './index.css'
 
 
@@ -10,9 +11,11 @@ const Main = () => {
 
   return (
     <ThemeContextProvider>
-      <div className='App'> 
-        <App />
-      </div>
+      <TaskIndexContextProvider>
+        <div className='App'> 
+          <App />
+        </div>
+      </TaskIndexContextProvider>
     </ThemeContextProvider>
   )
 }

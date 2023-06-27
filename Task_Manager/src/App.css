@@ -61,6 +61,10 @@
     align-items: center;
 }
 
+.task-tab {
+    cursor: pointer;
+}
+
 .user-icon {
     display: flex;
     height: 100%;
@@ -83,3 +87,13 @@
     display: flex;
 }
 
+.login-container {
+    border: 1px solid red;
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-wrap: wrap;
+    position: relative;
+}

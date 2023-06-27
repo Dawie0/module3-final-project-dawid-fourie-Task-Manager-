@@ -4,10 +4,7 @@ const TaskControl = () => {
     return (
         <div className="row4 task-control align-items-center ">
             <div className="me-1">
-                <button>Start Task</button>
-            </div>
-            <div className="me-1">
-                <button>Pause Task</button>
+                <button>Delete Task</button>
             </div>
             <div className="me-1">
                 <button>Finish Task</button>

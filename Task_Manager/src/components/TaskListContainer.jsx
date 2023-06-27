@@ -36,6 +36,7 @@ const TaskListContainer = () => {
             return (
                 <TaskTab 
                     key={index}
+                    index={index}
                     task={task}
                     deleteTask={() => deleteTask(index)}
                 />
