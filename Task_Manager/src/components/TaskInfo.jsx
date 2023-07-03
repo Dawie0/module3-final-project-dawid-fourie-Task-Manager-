@@ -2,9 +2,6 @@
 
 
 const TaskInfo = ({ task }) => {
-
-    
-
     if (task) {
         return (
             <div className="row7 task-info overflow-auto">
@@ -13,7 +10,7 @@ const TaskInfo = ({ task }) => {
                 <br></br>
                 <p>{task.description}</p>
             </div>
-            )
+        )
     }
     else {
         return (
@@ -21,7 +18,11 @@ const TaskInfo = ({ task }) => {
                 <h1>Create Task</h1>
             </div>
         )
-    }
+        }
+    
+    
+
+    
 
     
 }

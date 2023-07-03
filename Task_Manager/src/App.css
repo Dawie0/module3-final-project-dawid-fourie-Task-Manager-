@@ -55,6 +55,18 @@
     border: 1px solid purple;
 }
 
+.row9 {
+    width: 45%;
+    height: 100%;
+    border: 1px solid rgb(255, 0, 0);
+}
+
+.row10 {
+    width: 45%;
+    height: 40%;
+    border: 1px solid rgb(255, 0, 0);
+}
+
 .user-info, .task-tab {
     display: flex;
     justify-content: center;

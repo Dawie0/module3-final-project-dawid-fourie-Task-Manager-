@@ -1,0 +1,74 @@
+.calendar-widget {
+    height: 100%;
+    
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  
+  .calendar-cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    border-radius: 4px;
+    
+    background-color: transparent;
+  }
+
+  .calendar-date {
+    
+    font-weight: bold;
+  }
+
+  
+  .calendar-cell.active {
+    background-color: #cccccc1a;
+    border-radius: 50px;
+  }
+  .calendar-cell.past-date {
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .calendar-cell.today {
+    background-color: cccccc1a;
+    border: 1px solid #ccc;
+  }
+  
+  .calendar-cell.task-due {
+    border: 2px solid orange;
+    cursor: pointer;
+  }
+  
+  .calendar-cell.past-date-with-task {
+    border: 2px solid red;
+    cursor: pointer;
+  }
+
+  .calendar-cell.holiday {
+    border: 2px solid blue;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  

@@ -1,16 +1,96 @@
 /* eslint react/prop-types: 0 */
+import { useState, useEffect } from "react"
 
-const WeatherWidget = () => {
+const Weather = () => {
+    const [weatherData, setWeatherData] = useState(null)
+    const apiKey = '61c8b18049273a3f9871a4040f010efd'
+
+    useEffect(() => {
+        const cityName = getCity()
+        fetchWeatherData(cityName)
+            .then((data) => {
+                setWeatherData(data)
+                
+            })
+            .catch((error) => {
+                console.error('Failed to fetch weather data', error)
+            })
+    }, [])
+
+    const getCity = () => {
+        let cityName = ''
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+        }
+        else {
+            console.log('Geolocation is not supported by this browser.')
+        }
+
+        function successCallback(position) {
+            const latitude = position.coords.latitude
+            const longitude = position.coords.longitude
+
+            const geocodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`
+
+            fetch(geocodingUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    cityName = data[0].name
+                    console.log("City name: ", cityName)
+                })
+                .catch((error) => {
+                    console.error('Error retrieving city name:', error)
+                })
+        }
+
+        function errorCallback(error) {
+            console.error('Error retrieving location:', error)
+        }
+
+        return String(cityName)
+    }
+
+    const fetchWeatherData =  async (city) => {
+        try {
+            const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=' +
+                city +
+                '&appid=' + apiKey +
+                '&units=imperial')
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`)
+            }
+    
+            const data = await response.json()
+            return data
+        }
+        catch (error) {
+            console.log(`Could not get data: ${error}`)
+        }        
+    }
+    
+
+
     return (
-        <div className="col-5 weather-widget">
-            <div className="row8">
-                Weather
+        <div className="weather-widget">
+            {weatherData && (
+        <>
+          <div className="city-name">{weatherData.name}</div>
+          <div className="weather-details">
+            <div className="temperature">
+              {weatherData.main.temp}°C
             </div>
-            <div className="row8">
-                clock
+            <div className="weather-icon">
+              <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="Weather Icon" />
             </div>
-        </div>
-    )
+          </div>
+          <div className="weather-description">
+            {weatherData.weather[0].description}
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
-export default WeatherWidget
+export default Weather

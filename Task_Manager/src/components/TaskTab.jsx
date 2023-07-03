@@ -3,10 +3,11 @@ import { useContext } from "react"
 import { TaskIndexContext } from "../contexts/TaskIndexContext"
 
 const TaskTab =  ({ task, index }) => {
-    const { changeIndex } = useContext(TaskIndexContext)
+    const { setTaskIndex } = useContext(TaskIndexContext)
 
     const selectTask = () => {
-        changeIndex(index)
+        setTaskIndex(index)
+        
     }
     
     return (

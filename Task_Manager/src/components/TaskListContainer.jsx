@@ -1,31 +1,13 @@
 /* eslint react/prop-types: 0 */
-import { useState, useEffect } from "react"
+import { useState, useContext } from "react"
 import TaskTab from "./TaskTab"
 import CreateTask from "./CreateTask"
+import { TaskIndexContext } from "../contexts/TaskIndexContext"
 
 
 const TaskListContainer = () => {
-    const [tasks, setTasks] = useState([])
+    const { tasks, addTask } = useContext(TaskIndexContext)
     const [isAddingTask, setIsAddingTask] = useState(false)
-
-    useEffect(() => {
-        const storedTasks = localStorage.getItem('tasks')
-        if (storedTasks) {
-            setTasks(JSON.parse(storedTasks))
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(tasks))
-    }, [tasks])
-
-    const addTask = (newTask) => {
-        setTasks((prevTasks) => [...prevTasks, newTask])
-    }
-
-    const deleteTask = (taskId) => {
-
-    }
 
     const toggleIsAddingTask = () => {
         setIsAddingTask((curr) => !curr)
@@ -38,7 +20,6 @@ const TaskListContainer = () => {
                     key={index}
                     index={index}
                     task={task}
-                    deleteTask={() => deleteTask(index)}
                 />
             )
         })
