@@ -55,7 +55,7 @@ const CreateTask = ({ handleClick, addTask }) => {
                 placeholder="Description"
                 required
             />
-            <button type="submit">Add Task</button>
+            <button type="submit" className="btn">Add Task</button>
         </form>
     )
 }

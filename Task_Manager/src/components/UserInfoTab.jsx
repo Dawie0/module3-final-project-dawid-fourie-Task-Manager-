@@ -1,11 +1,12 @@
 /* eslint react/prop-types: 0 */
 import { UserIcon } from "../assets/icons"
+import SettingsMenu from "./SettingsMenu"
 
 const UserInfo = () => {
     return (
         <div className='row4 text-center user-info'>
             <div className="col-2 user-icon" >
-                <UserIcon />
+                <SettingsMenu />
             </div>
             <div className="col-10">
                 User Name - Position

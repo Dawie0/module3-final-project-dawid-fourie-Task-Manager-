@@ -12,10 +12,10 @@ const TaskControl = () => {
     return (
         <div className="row4 task-control align-items-center ">
             <div className="me-1">
-                <button onClick={handleDelete}>Delete Task</button>
+                <button onClick={handleDelete} className="btn2">Delete Task</button>
             </div>
             <div className="me-1">
-                <button>Finish Task</button>
+                <button className="btn2">Finish Task</button>
             </div>
             
             

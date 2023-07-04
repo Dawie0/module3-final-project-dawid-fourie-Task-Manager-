@@ -38,7 +38,6 @@ const MainWindow = () => {
               </div>
             </div>
           </div>
-          <DarkModeButton />
         </div>
     )
   }

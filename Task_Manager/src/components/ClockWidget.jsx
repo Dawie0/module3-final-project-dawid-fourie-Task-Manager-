@@ -1,6 +1,7 @@
 /* eslint react/prop-types: 0 */
 import Clock from './Clock'
 import Weather from './WeatherWidget'
+import TaskListWidget from './TaskListWidget'
 import './clockWidget.css'
 
 const Widgets = () => {
@@ -14,7 +15,7 @@ const Widgets = () => {
                 </div>
             </div>
             <div className="row8">
-                Weather
+                <TaskListWidget />
             </div>
         </div>
     )

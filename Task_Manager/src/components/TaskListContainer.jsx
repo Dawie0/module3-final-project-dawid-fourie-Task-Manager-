@@ -28,7 +28,7 @@ const TaskListContainer = () => {
 
     return (
         <div className='row5 overflow-auto'>
-            <button onClick={toggleIsAddingTask}>Create task</button>
+            <button className="btn2" onClick={toggleIsAddingTask}>Create task</button>
             {!isAddingTask ? 
                 TaskTabPopulate() :
                 <CreateTask handleClick={() => toggleIsAddingTask()} addTask={addTask}/>}

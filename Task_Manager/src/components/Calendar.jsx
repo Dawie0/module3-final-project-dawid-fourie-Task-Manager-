@@ -114,10 +114,18 @@ const Calendar = ({ tasks }) => {
       };
     
     const isSameDay = (date1, date2) => {
+        const date1UTC = new Date(
+            date1.getUTCFullYear(),
+            date1.getUTCMonth(),
+            date1.getUTCDate()
+        )
+        const date2UTC = new Date(
+            date2.getUTCFullYear(),
+            date2.getUTCMonth(),
+            date2.getUTCDate()
+        )
         return (
-          date1.getDate() === date2.getDate() &&
-          date1.getMonth() === date2.getMonth() &&
-          date1.getFullYear() === date2.getFullYear()
+          date1UTC.getTime() === date2UTC.getTime()
         );
     };
 
@@ -130,7 +138,7 @@ const Calendar = ({ tasks }) => {
         <div className="col-7 calendar">
             <div className="calendar-widget">
                 <div className="calendar-header">
-                    <h2>{currentDate.toLocaleString('default', {month: 'long', year:'numeric'})}</h2>
+                    <h6>{currentDate.toLocaleString('default', {month: 'long', year:'numeric'})}</h6>
                 </div>
                 <div className="calendar-grid">
                     {calendarData.map((date, index) => {

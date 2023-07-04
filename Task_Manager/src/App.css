@@ -15,13 +15,13 @@
 
 .row2 {
     width: auto;
-    height: 70%;
+    height: 65%;
     border: 1px solid orange;
 }
 
 .row3 {
     width: auto;
-    height: 30%;
+    height: 35%;
     border: 1px solid orange;
 }
 
@@ -97,15 +97,4 @@
 
 .widget-container {
     display: flex;
-}
-
-.login-container {
-    border: 1px solid red;
-    background-color: bisque;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    flex-wrap: wrap;
-    position: relative;
 }

@@ -6,11 +6,10 @@ const Weather = () => {
     const apiKey = '61c8b18049273a3f9871a4040f010efd'
 
     useEffect(() => {
-        const cityName = getCity()
-        fetchWeatherData(cityName)
+        getCity()
+            .then((cityName) => fetchWeatherData(cityName))
             .then((data) => {
                 setWeatherData(data)
-                
             })
             .catch((error) => {
                 console.error('Failed to fetch weather data', error)
@@ -18,36 +17,35 @@ const Weather = () => {
     }, [])
 
     const getCity = () => {
-        let cityName = ''
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
-        }
-        else {
-            console.log('Geolocation is not supported by this browser.')
-        }
+        return new Promise((resolve, reject) => {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude
+                    const longitude = position.coords.longitude
+                    const geocodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`
 
-        function successCallback(position) {
-            const latitude = position.coords.latitude
-            const longitude = position.coords.longitude
-
-            const geocodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`
-
-            fetch(geocodingUrl)
-                .then((response) => response.json())
-                .then((data) => {
-                    cityName = data[0].name
-                    console.log("City name: ", cityName)
-                })
-                .catch((error) => {
-                    console.error('Error retrieving city name:', error)
-                })
-        }
-
-        function errorCallback(error) {
-            console.error('Error retrieving location:', error)
-        }
-
-        return String(cityName)
+                    fetch(geocodingUrl)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const cityName = data[0].name
+                            console.log(cityName)
+                            resolve(cityName)
+                        })
+                        .catch((error) => {
+                            console.error('Error retrieving city name:', error)
+                            reject(error)
+                        })
+                },
+                (error) => {
+                    console.error('Error retrieving location:', error)
+                    reject(error)
+                }
+                )
+            }   else {
+                console.log('Geolocation is not supported by this browser.')
+                reject(new Error('Geolocation not supported'))
+            }
+        })
     }
 
     const fetchWeatherData =  async (city) => {
@@ -78,7 +76,7 @@ const Weather = () => {
           <div className="city-name">{weatherData.name}</div>
           <div className="weather-details">
             <div className="temperature">
-              {weatherData.main.temp}°C
+              {Math.round(weatherData.main.temp)}°C
             </div>
             <div className="weather-icon">
               <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="Weather Icon" />
