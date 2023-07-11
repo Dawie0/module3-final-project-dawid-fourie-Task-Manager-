@@ -1,6 +1,5 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react"
-
 import Popover from "./Popover"
 import './calendar.css'
 
@@ -67,7 +66,7 @@ const Calendar = ({ tasks }) => {
           date.getUTCFullYear(),
           date.getUTCMonth(),
           date.getUTCDate()
-        );
+        )
 
         return tasks.some((task) => {
             const taskDate = new Date(task.dueDate);
@@ -80,7 +79,7 @@ const Calendar = ({ tasks }) => {
             return (
               taskDateUTC.getTime() === currentDateUTC.getTime()
             )
-        });
+        })
     }
 
     const handleDayHover = (date) => {
@@ -90,27 +89,27 @@ const Calendar = ({ tasks }) => {
     
     const getTasksForDate = (date) => {
         if (date === null) {
-          return [];
+          return []
         }
       
-        const formattedDate = date.toISOString().split('T')[0];
+        const formattedDate = date.toISOString().split('T')[0]
       
         const tasksForDate = tasks.filter((task) => {
-          const taskDate = task.dueDate.split('T')[0];
-          return taskDate === formattedDate;
-        });
+          const taskDate = task.dueDate.split('T')[0]
+          return taskDate === formattedDate
+        })
       
       
-        return tasksForDate;
+        return tasksForDate
     }
 
     const isHoliday = (date) => {
         // Check if the date is a public holiday
         return publicHolidays.some((holiday) => {
-          const holidayDate = new Date(holiday.date);
-          return isSameDay(date, holidayDate);
-        });
-      };
+          const holidayDate = new Date(holiday.date)
+          return isSameDay(date, holidayDate)
+        })
+      }
     
     const isSameDay = (date1, date2) => {
         const date1UTC = new Date(
@@ -125,12 +124,12 @@ const Calendar = ({ tasks }) => {
         )
         return (
           date1UTC.getTime() === date2UTC.getTime()
-        );
-    };
+        )
+    }
 
     const getHolidayForDate = (date) => {
-        return publicHolidays.find((holiday) => isSameDay(date, new Date(holiday.date)));
-      };
+        return publicHolidays.find((holiday) => isSameDay(date, new Date(holiday.date)))
+      }
 
 
     return (

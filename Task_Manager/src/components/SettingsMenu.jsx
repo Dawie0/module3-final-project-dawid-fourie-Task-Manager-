@@ -3,7 +3,6 @@ import { useContext } from "react"
 import { UserIcon } from "../assets/icons"
 import { ThemeContext } from '../contexts/ThemeContext'
 import { useNavigate } from 'react-router-dom'
-import { ValidUserContext } from "../contexts/UserContext"
 
 import DarkModeButton from './DarkModeButton'
 import './settings.css'

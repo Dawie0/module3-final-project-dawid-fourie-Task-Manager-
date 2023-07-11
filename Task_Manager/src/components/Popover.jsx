@@ -26,9 +26,9 @@ const Popover = ({ tasks, holiday }) => {
     )
   }
   catch (error) {
-    console.error("Error rendering Popover:", error);
-    console.log("Tasks:", tasks);
-    return null;
+    console.error("Error rendering Popover:", error)
+    console.log("Tasks:", tasks)
+    return null
   }
 };
 
