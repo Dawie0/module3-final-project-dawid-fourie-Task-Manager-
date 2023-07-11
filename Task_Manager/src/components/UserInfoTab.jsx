@@ -1,18 +1,30 @@
 /* eslint react/prop-types: 0 */
-import { UserIcon } from "../assets/icons"
+import { useContext } from "react"
 import SettingsMenu from "./SettingsMenu"
+import { ValidUserContext } from "../contexts/UserContext"
+import { ThemeContext } from "../contexts/ThemeContext"
 
-const UserInfo = () => {
+const UserInfoTab = ({ logout }) => {
+    const { currentUser } = useContext(ValidUserContext)
+    const { theme } = useContext(ThemeContext)
+
+    
+
     return (
-        <div className='row4 text-center user-info'>
+        <div className={`row4 text-center user-info secondary-${theme}`}>
             <div className="col-2 user-icon" >
-                <SettingsMenu />
+                <SettingsMenu logout={() => logout()}/>
             </div>
             <div className="col-10">
-                User Name - Position
+                {currentUser && currentUser.username  ?
+                    `${currentUser.username} - ${currentUser.position}` :
+                    logout()}
+                
             </div>
         </div>
     )
 }
 
-export default UserInfo
+export default UserInfoTab
+
+

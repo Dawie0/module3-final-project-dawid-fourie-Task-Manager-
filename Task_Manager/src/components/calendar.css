@@ -2,14 +2,15 @@
     height: 100%;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+
   }
   
   .calendar-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: -10px;
   }
   
   .calendar-header h2 {
@@ -31,7 +32,6 @@
     justify-content: center;
     height: 32px;
     border-radius: 4px;
-    
     background-color: transparent;
   }
 
@@ -42,7 +42,7 @@
 
   
   .calendar-cell.active {
-    background-color: #cccccc1a;
+    background-color: #cccccca1;
     border-radius: 50px;
   }
   .calendar-cell.past-date {
@@ -51,7 +51,7 @@
   }
 
   .calendar-cell.today {
-    background-color: cccccc1a;
+    background-color: #ffffff1a;
     border: 1px solid #ccc;
   }
   
@@ -73,10 +73,19 @@
   
   .weather-widget {
     text-align: center;
+    
   }
 
   .task-list-widget {
+    padding-left: 20px;
     text-align: left;
     overflow-y: scroll;
     max-height: 100%;
+
+  }
+
+  .day-of-week {
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
   }

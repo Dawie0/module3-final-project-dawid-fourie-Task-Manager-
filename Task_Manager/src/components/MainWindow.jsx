@@ -1,9 +1,9 @@
 /* eslint react/prop-types: 0 */
-
-import { useContext } from 'react'
-import DarkModeButton from './DarkModeButton'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../contexts/ThemeContext'
-import UserInfo from './UserInfoTab'
+import { ValidUserContext } from '../contexts/UserContext'
+import UserInfoTab from './UserInfoTab'
 import TaskListContainer from './TaskListContainer'
 import TaskInfoContainer from './TaskInfoContainer'
 import WidgetContainer from './WidgetContainer'
@@ -12,8 +12,25 @@ import '../App.css'
 
 const MainWindow = () => {
     const { theme } = useContext(ThemeContext)
-    
-  
+    const { currentUser } = useContext(ValidUserContext)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+      if (!currentUser) {
+        navigate('/login')
+      }
+      else if (currentUser && !currentUser.organization && !currentUser.position) {
+        navigate('/user-info')
+      }
+    }, [currentUser, navigate])
+
+    if (!currentUser) {
+      return null
+    }
+
+    const logout =() => {
+      navigate('/login')
+    }
     return (
         <div className='App' id={theme} >
           <div className='container-fluid'>
@@ -21,7 +38,7 @@ const MainWindow = () => {
               {/* Left Side */}
               <div className='col-5'>
                 {/* User Info */}
-                  <UserInfo />
+                  <UserInfoTab logout={logout}/>
                 
                 {/* Task List */}
                 <TaskListContainer />

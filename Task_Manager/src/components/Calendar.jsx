@@ -1,5 +1,6 @@
 /* eslint react/prop-types: 0 */
 import { useState, useEffect } from "react"
+
 import Popover from "./Popover"
 import './calendar.css'
 
@@ -99,8 +100,6 @@ const Calendar = ({ tasks }) => {
           return taskDate === formattedDate;
         });
       
-        console.log('Date:', date);
-        console.log('Tasks:', tasksForDate);
       
         return tasksForDate;
     }
@@ -141,6 +140,13 @@ const Calendar = ({ tasks }) => {
                     <h6>{currentDate.toLocaleString('default', {month: 'long', year:'numeric'})}</h6>
                 </div>
                 <div className="calendar-grid">
+                    <div className="day-of-week">Sun</div>
+                    <div className="day-of-week">Mon</div>
+                    <div className="day-of-week">Tue</div>
+                    <div className="day-of-week">Wed</div>
+                    <div className="day-of-week">Thu</div>
+                    <div className="day-of-week">Fri</div>
+                    <div className="day-of-week">Sat</div>
                     {calendarData.map((date, index) => {
                         const isPastDate = date && date < new Date().setHours(0, 0, 0, 0)
                         const hasTaskDue = isTaskDueDate(date)

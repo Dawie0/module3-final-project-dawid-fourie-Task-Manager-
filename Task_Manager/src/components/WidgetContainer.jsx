@@ -2,18 +2,29 @@
 import { useContext } from "react"
 import Calendar from "./Calendar"
 import Widgets from "./ClockWidget"
-import { TaskIndexContext } from "../contexts/TaskIndexContext"
+import { ValidUserContext } from "../contexts/UserContext"
 
 
 const WidgetContainer = () => {
-
-    const { tasks } = useContext(TaskIndexContext)
-    return (
-    <div className='row3 widget-container'>
-        <Calendar tasks={tasks}/>
-        <Widgets />
-    </div>
-    )
+    const { currentUser } = useContext(ValidUserContext)
+    
+    if (currentUser && currentUser.tasks) {
+        return (
+            <div className='row3 widget-container'>
+                <Calendar tasks={currentUser.tasks}/>
+                <Widgets />
+            </div>
+            )
+    }
+    else {
+        return (
+            <div className='row3 widget-container'>
+                <Calendar tasks={[]}/>
+                <Widgets />
+            </div>
+            )
+    }
+    
 }
 
 export default WidgetContainer

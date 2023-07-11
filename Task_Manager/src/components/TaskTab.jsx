@@ -1,9 +1,11 @@
 /* eslint react/prop-types: 0 */
 import { useContext } from "react"
 import { TaskIndexContext } from "../contexts/TaskIndexContext"
+import { ThemeContext } from "../contexts/ThemeContext"
 
 const TaskTab =  ({ task, index }) => {
-    const { setTaskIndex } = useContext(TaskIndexContext)
+    const { taskIndex, setTaskIndex } = useContext(TaskIndexContext)
+    const {theme} = useContext(ThemeContext)
 
     const selectTask = () => {
         setTaskIndex(index)
@@ -11,7 +13,7 @@ const TaskTab =  ({ task, index }) => {
     }
     
     return (
-        <div className="row6 text-center mt-2 task-tab" onClick={selectTask}>
+        <div className={index === taskIndex ? `row6 text-center mt-2 task-tab selected-task-${theme}` : `row6 text-center mt-2 task-tab task-${theme}`} onClick={selectTask}>
             <div className="col-2">
                 {task.priority}
             </div>

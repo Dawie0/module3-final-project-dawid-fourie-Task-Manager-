@@ -2,11 +2,13 @@
 import { useState, useContext } from "react"
 import TaskTab from "./TaskTab"
 import CreateTask from "./CreateTask"
-import { TaskIndexContext } from "../contexts/TaskIndexContext"
+import { ValidUserContext } from "../contexts/UserContext"
+import {ThemeContext } from "../contexts/ThemeContext"
 
 
 const TaskListContainer = () => {
-    const { tasks, addTask } = useContext(TaskIndexContext)
+    const { currentUser } = useContext(ValidUserContext)
+    const { theme } = useContext(ThemeContext)
     const [isAddingTask, setIsAddingTask] = useState(false)
 
     const toggleIsAddingTask = () => {
@@ -14,24 +16,29 @@ const TaskListContainer = () => {
     }
     
     const TaskTabPopulate = () => {
-        return tasks.map((task, index) => {
-            return (
-                <TaskTab 
-                    key={index}
-                    index={index}
-                    task={task}
-                />
-            )
-        })
+        if (currentUser && currentUser.tasks) {
+            return currentUser.tasks.map((task, index) => {
+                return (
+                    <TaskTab 
+                        key={index}
+                        index={index}
+                        task={task}
+                    />
+                )
+            })
+        }
+        else {
+            return []
+        }
     }
 
 
     return (
-        <div className='row5 overflow-auto'>
-            <button className="btn2" onClick={toggleIsAddingTask}>Create task</button>
+        <div className={`row5 overflow-auto scroller-hide task-list-container secondary-${theme}`}>
+            {!isAddingTask ? <button className="btn2" onClick={toggleIsAddingTask}>Create task</button> : ""}
             {!isAddingTask ? 
                 TaskTabPopulate() :
-                <CreateTask handleClick={() => toggleIsAddingTask()} addTask={addTask}/>}
+                <CreateTask handleClick={() => toggleIsAddingTask()}/>}
         </div>
     )
 }

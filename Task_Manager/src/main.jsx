@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import { ThemeContextProvider } from './contexts/ThemeContext.jsx'
 import { TaskIndexContextProvider } from './contexts/TaskIndexContext.jsx'
+import { ValidUserContextProvider } from './contexts/UserContext.jsx'
+import App from './App.jsx'
 import './index.css'
 
 
@@ -11,11 +12,13 @@ const Main = () => {
 
   return (
     <ThemeContextProvider>
-      <TaskIndexContextProvider>
-        <div className='App'> 
-          <App />
-        </div>
-      </TaskIndexContextProvider>
+      <ValidUserContextProvider>
+        <TaskIndexContextProvider>
+          <div className='App'> 
+            <App />
+          </div>
+        </TaskIndexContextProvider>
+      </ValidUserContextProvider>
     </ThemeContextProvider>
   )
 }
@@ -23,5 +26,5 @@ const Main = () => {
 export default Main
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Main />,
+    <Main />,
 )

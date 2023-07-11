@@ -1,5 +1,12 @@
+.login-body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .card {
-    width: 190px;
+    width: 275px;
     padding: 1.9rem 1.2rem;
     text-align: center;
     background: #2a2b38;
