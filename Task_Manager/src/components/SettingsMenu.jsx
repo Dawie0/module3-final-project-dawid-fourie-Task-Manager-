@@ -10,13 +10,14 @@ import './settings.css'
 const SettingsMenu = () => {
     const navigate = useNavigate()
     const { theme } = useContext(ThemeContext)
-    const { setCanLogIn, setCurrUserData } = useContext(ValidUserContext)
+    const { setCanLogIn, setCurrUserData, setCurrUserTasks } = useContext(ValidUserContext)
     
 
     const handleLogout = () => {
         console.log('Logging Out')
         localStorage.removeItem('token')
         setCurrUserData(null)
+        setCurrUserTasks([])
         setCanLogIn(null)
         navigate('/login')
     }
