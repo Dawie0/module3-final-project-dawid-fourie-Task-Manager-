@@ -5,6 +5,7 @@ const ThemeContext = createContext()
 
 const ThemeContextProvider = ({ children }) => {
     const [theme, setTheme] = useState('dark')
+    localStorage.setItem('theme-task-manager', 'dark')
 
     useEffect(() => {
         const localTheme = localStorage.getItem('theme-task-manager')
@@ -14,6 +15,8 @@ const ThemeContextProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem('theme-task-manager', theme)
     }, [theme])
+
+    
 
     const toggleDarkMode = () => {
         setTheme((curr) => (curr === 'light' ? 'dark' : 'light'))
