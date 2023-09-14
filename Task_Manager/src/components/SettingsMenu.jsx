@@ -3,19 +3,24 @@ import { useContext } from "react"
 import { UserIcon } from "../assets/icons"
 import { ThemeContext } from '../contexts/ThemeContext'
 import { useNavigate } from 'react-router-dom'
-
+import { ValidUserContext } from "../contexts/UserContext"
 import DarkModeButton from './DarkModeButton'
 import './settings.css'
 
-const SettingsMenu = ({ logout }) => {
+const SettingsMenu = () => {
     const navigate = useNavigate()
     const { theme } = useContext(ThemeContext)
+    const { setCanLogIn, setCurrUserData } = useContext(ValidUserContext)
     
 
     const handleLogout = () => {
         console.log('Logging Out')
-        logout()
+        localStorage.removeItem('token')
+        setCurrUserData(null)
+        setCanLogIn(null)
+        navigate('/login')
     }
+
     const toUserInfo = () => {
         navigate('/user-info')
     }

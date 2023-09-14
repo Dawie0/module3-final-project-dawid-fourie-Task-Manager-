@@ -12,6 +12,12 @@
     height: 63.5%;
 }
 
+@media (max-width: 992px) {
+    .row2 {
+        height: 98%;
+    }
+}
+
 .row3 {
     width: auto;
     height: 35%;
@@ -24,12 +30,18 @@
 
 .row5 {
     width: auto;
-    height: 88%;
+    height: 87.6%;
+}
+@media (max-width: 992px) {
+    .row5 {
+        width: auto;
+        height: 83.5%;
+    }
 }
 
 .row6 {
     width: auto;
-    height: 7%;
+    height: 70px;
 }
 
 .row7 {
@@ -144,4 +156,17 @@
 
 .textarea {
     border: none;
+}
+
+.dueDate {
+    font-size: 13px;
+}
+
+.finished {
+    background: rgba(0, 128, 0, 0.3);
+    
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }

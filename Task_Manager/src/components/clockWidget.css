@@ -5,7 +5,7 @@
     align-items: center;
 }
 .clock-time {
-    color: green;
+    color: rgb(0, 128, 0);
     font-size: 48px;
 }
 

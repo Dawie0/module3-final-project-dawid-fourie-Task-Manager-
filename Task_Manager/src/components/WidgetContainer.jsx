@@ -6,12 +6,12 @@ import { ValidUserContext } from "../contexts/UserContext"
 
 
 const WidgetContainer = () => {
-    const { currentUser } = useContext(ValidUserContext)
+    const { currUserTasks } = useContext(ValidUserContext)
     
-    if (currentUser && currentUser.tasks) {
+    if (currUserTasks) {
         return (
             <div className='row3 widget-container'>
-                <Calendar tasks={currentUser.tasks}/>
+                <Calendar tasks={currUserTasks}/>
                 <Widgets />
             </div>
             )

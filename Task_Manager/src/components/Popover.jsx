@@ -14,11 +14,16 @@ const Popover = ({ tasks, holiday }) => {
           <div className="popover-content">
             <p className="popover-subtitle">Tasks:</p>
             <div className="task-container">
-              {tasks.map((task, index) => (
-                <p className="task-item" key={index}>
-                  {task.name}
-                </p>
-              ))}
+              {tasks.map((task, index) => {
+                if (task.isFinished) {
+                  return
+                }
+                return (
+                  <p className="task-item" key={index}>
+                    {task.task.name}
+                  </p>
+                )  
+              })}
             </div>
           </div>
         )}

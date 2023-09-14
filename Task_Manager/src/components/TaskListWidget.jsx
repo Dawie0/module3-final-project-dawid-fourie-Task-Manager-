@@ -4,13 +4,16 @@ import { ValidUserContext } from "../contexts/UserContext"
 
 
 const TaskListWidget = () => {
-    const { currentUser } = useContext(ValidUserContext)
+    const { currUserTasks } = useContext(ValidUserContext)
 
     const taskList = () => {
-        if (currentUser && currentUser.tasks) {
-            return currentUser.tasks.map((task, index) => {
+        if (currUserTasks ) {
+            return currUserTasks.map((task, index) => {
+                if (task.isDeleted || task.isFinished) {
+                    return
+                }
                 return (
-                    <li key={index}>{task.name}</li>
+                    <li key={index}>{task.task.name}</li>
                 )
             })
         }

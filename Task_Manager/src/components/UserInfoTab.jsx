@@ -1,11 +1,11 @@
 /* eslint react/prop-types: 0 */
 import { useContext } from "react"
 import SettingsMenu from "./SettingsMenu"
-import { ValidUserContext } from "../contexts/UserContext"
 import { ThemeContext } from "../contexts/ThemeContext"
+import { ValidUserContext } from "../contexts/UserContext"
 
-const UserInfoTab = ({ logout }) => {
-    const { currentUser } = useContext(ValidUserContext)
+const UserInfoTab = () => {
+    const { currUserData } = useContext(ValidUserContext)
     const { theme } = useContext(ThemeContext)
 
     
@@ -13,12 +13,10 @@ const UserInfoTab = ({ logout }) => {
     return (
         <div className={`row4 text-center user-info secondary-${theme}`}>
             <div className="col-2 user-icon" >
-                <SettingsMenu logout={() => logout()}/>
+                <SettingsMenu />
             </div>
             <div className="col-10">
-                {currentUser && currentUser.username  ?
-                    `${currentUser.username} - ${currentUser.position}` :
-                    logout()}
+                {`${currUserData ? currUserData.user.username : ''}` }
                 
             </div>
         </div>

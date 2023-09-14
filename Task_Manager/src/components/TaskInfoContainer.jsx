@@ -7,21 +7,21 @@ import { ValidUserContext } from "../contexts/UserContext"
 import { ThemeContext } from "../contexts/ThemeContext"
 
 const TaskInfoContainer = () => {
-    const { currentUser } = useContext(ValidUserContext)
+    const { currUserTasks } = useContext(ValidUserContext)
     const { taskIndex, setTaskIndex } = useContext(TaskIndexContext)
     const { theme } = useContext(ThemeContext)
 
     useEffect(() => {
-        if (currentUser && currentUser.tasks && currentUser.tasks.length > 0) {
+        if (currUserTasks && currUserTasks.length > 0) {
             setTaskIndex(0)
         }
-    }, [currentUser, setTaskIndex])
+    }, [currUserTasks, setTaskIndex])
 
-    if (currentUser && currentUser.tasks && currentUser.tasks.length > 0) {
+    if (currUserTasks &&  currUserTasks.length > 0) {
         return (
             <div className={`row2 task-info secondary-${theme}`}> 
-                <TaskInfo task={currentUser.tasks[taskIndex]} username={currentUser.username}/>
-                <TaskControl />
+                <TaskInfo task={currUserTasks[taskIndex]}/>
+                <TaskControl currentTask={currUserTasks[taskIndex]}/>
             </div>
         )
     }

@@ -12,45 +12,50 @@ import '../App.css'
 
 const MainWindow = () => {
     const { theme } = useContext(ThemeContext)
-    const { currentUser } = useContext(ValidUserContext)
+    const { currUserData, taskSelected } = useContext(ValidUserContext)
+    
     const navigate = useNavigate()
 
     useEffect(() => {
-      if (!currentUser) {
+      if (!currUserData) {
         navigate('/login')
       }
-      else if (currentUser && !currentUser.organization && !currentUser.position) {
+      else if (
+        currUserData && 
+        (!currUserData.user_details?.organization || 
+          !currUserData.user_details?.position || 
+          !currUserData.user_details?.positionType)
+      ) {
         navigate('/user-info')
       }
-    }, [currentUser, navigate])
+    }, [currUserData, navigate])
 
-    if (!currentUser) {
-      return null
-    }
-
-    const logout =() => {
-      navigate('/login')
-    }
     return (
         <div className='App' id={theme} >
           <div className='container-fluid'>
             <div className='row'>
+              
               {/* Left Side */}
-              <div className='col-5'>
+              <div className={`col-sm-12 col-lg-5 ${taskSelected ? 'd-none d-lg-block' : ''}`}>
                 {/* User Info */}
-                  <UserInfoTab logout={logout}/>
-                
+                <div>
+                  <UserInfoTab/>
+                </div>
+                  
                 {/* Task List */}
                 <TaskListContainer />
   
               </div>
   
               {/* Right Side */}
-              <div className='col-7'>
+              <div className={`col-sm-12 col-lg-7 ${taskSelected ? '' : 'd-none d-lg-block'}`}>
                 {/* Task Details */}
                 <TaskInfoContainer />
                 {/* Widgets */}
-                <WidgetContainer />
+                <div className='col-lg-12 d-none d-lg-block'>
+                  <WidgetContainer/>
+                </div>
+                
   
               </div>
             </div>

@@ -5,10 +5,9 @@ const TaskInfo = ({ task }) => {
     if (task) {
         return (
             <div className="row7 task-info overflow-auto">
-                <h1>{task.name}</h1>
-                <h4>{`Assigned By: ${task.setBy}`}</h4>
+                <h1>{task.task.name}</h1>
                 <br></br>
-                <p>{task.description}</p>
+                <p>{task.task.description}</p>
             </div>
         )
     }
@@ -19,13 +18,7 @@ const TaskInfo = ({ task }) => {
                 <h1>Create Task</h1>
             </div>
         )
-    }
-    
-    
-
-    
-
-    
+    }    
 }
 
 export default TaskInfo

@@ -97,3 +97,26 @@
     color: #ffeba7;
    }
    
+
+
+   /* Apply styles to the select element */
+select.custom-select {
+    background-color: transparent; 
+    
+    border-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+select option {
+    background-color: #1f2029 !important;
+    color: #d3d3d3;
+}
+
+@media (max-width: 768px) {
+    .btn2 {
+        font-size: 11.5px;
+    }
+}

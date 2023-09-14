@@ -7,7 +7,7 @@ import './clockWidget.css'
 const Widgets = () => {
 
     return (
-        <div className="col-5 weather-widget">
+        <div className="col-lg-5 weather-widget">
             <div className="row8">
                 <div className='clock-container'>
                     <Clock />

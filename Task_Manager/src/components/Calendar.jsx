@@ -69,7 +69,10 @@ const Calendar = ({ tasks }) => {
         )
 
         return tasks.some((task) => {
-            const taskDate = new Date(task.dueDate);
+            if (task.isDeleted || task.isFinished) {
+                return
+            }
+            const taskDate = new Date(task.task.dueDate);
             const taskDateUTC = new Date(
               taskDate.getUTCFullYear(),
               taskDate.getUTCMonth(),
@@ -95,7 +98,7 @@ const Calendar = ({ tasks }) => {
         const formattedDate = date.toISOString().split('T')[0]
       
         const tasksForDate = tasks.filter((task) => {
-          const taskDate = task.dueDate.split('T')[0]
+          const taskDate = task.task.dueDate.split('T')[0]
           return taskDate === formattedDate
         })
       
@@ -133,7 +136,7 @@ const Calendar = ({ tasks }) => {
 
 
     return (
-        <div className="col-7 calendar">
+        <div className="col-lg-7 calendar">
             <div className="calendar-widget">
                 <div className="calendar-header">
                     <h6>{currentDate.toLocaleString('default', {month: 'long', year:'numeric'})}</h6>

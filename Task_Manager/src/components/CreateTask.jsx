@@ -1,39 +1,137 @@
 /* eslint react/prop-types: 0 */
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { ValidUserContext } from "../contexts/UserContext"
+import { TaskIndexContext } from "../contexts/TaskIndexContext"
+import axios from "axios"
 
 const CreateTask = ({ handleClick }) => {
-    const { currentUser, addTaskToUser } = useContext(ValidUserContext)
+    const { 
+        currUserData, 
+        updateCurrentUser, 
+        isEditingTask, isAddingTask, 
+        setIsEditingTask, 
+        setIsAddingTask, 
+        currUserTasks } = useContext(ValidUserContext)
+    const { taskIndex } = useContext(TaskIndexContext)
     const [priority, setPriority] = useState('')
     const [name, setName] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [description, setDescription] = useState('')
-    const setBy = currentUser.username
+    // const setBy = currentUser.username
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (isEditingTask && currUserTasks[taskIndex]) {
+          const editedTask = currUserTasks[taskIndex];
+          setPriority(editedTask.task.priority || "");
+          setName(editedTask.task.name || "");
+          setDueDate(editedTask.task.dueDate || "");
+          setDescription(editedTask.task.description || "");
+        }
+      }, [isEditingTask, taskIndex, currUserTasks]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const newTask = {
-            priority,
-            name,
-            dueDate,
-            description,
-            setBy
+        if (isEditingTask && !isAddingTask) {
+            try {
+                if(
+                    priority.trim() === '' || 
+                    name.trim() === '' || 
+                    dueDate.trim() === '' || 
+                    description.trim() === ''
+                    ) {
+                    alert('Please Fill Out All Task Related Fields')
+                }
+                else {
+                    const task = {
+                        priority: priority,
+                        name: name,
+                        dueDate: dueDate,
+                        description: description,
+                        // setBy
+                    }
+
+                    const token = localStorage.getItem('token')
+                    
+                    await axios.put(
+                        `https://task-manager-backend-three.vercel.app/api/update-task/`, 
+                        { taskId: currUserTasks[taskIndex]._id, task: task },
+                        {
+                            headers: {
+                                Authorization: token,
+                            }
+                        }
+                        )
+                    alert('Task updated successfully!')
+                }
+            }
+            catch (error) {
+                console.error('Error editing task: ', error)
+                alert('Failed to edit task. Please try again later.')
+            }
+            finally {
+                setPriority('')
+                setName('')
+                setDueDate('')
+                updateCurrentUser(currUserData.user.email)
+                back()
+            }
+        }
+        else if (isAddingTask && !isEditingTask) {
+            try {
+                if (
+                    priority.trim() === '' || 
+                    name.trim() === '' || 
+                    dueDate.trim() === '' || 
+                    description.trim() === ''
+                    ) {
+                    alert('Please Fill Out All Task Related Fields')
+                }
+                else {
+                    const task = {
+                        priority: priority,
+                        name: name,
+                        dueDate: dueDate,
+                        description: description,
+                        // setBy
+                    }
+
+                    const token = localStorage.getItem('token')
+    
+                    await axios.post(
+                        `https://task-manager-backend-three.vercel.app/api/create-tasks/`, 
+                        { userId: currUserData._id, task: task },
+                        {
+                            headers: {
+                                Authorization: token,
+                            }
+                        }
+                    )
+                    alert('Task added successfully!')
+                }
+            }
+            catch (error) {
+                console.error('Error adding task: ', error)
+                alert('Failed to add task. Please try again later.')
+            }
+            finally {
+                setPriority('')
+                setName('')
+                setDueDate('')
+                updateCurrentUser(currUserData.user.email)
+                handleClick()
+            }
         }
 
-        addTaskToUser(newTask)
-
-        setPriority('')
-        setName('')
-        setDueDate('')
-        handleClick()
+         
     }
 
     const back = () => {
         setPriority('')
         setName('')
         setDueDate('')
-        handleClick()
+        setIsEditingTask(false) 
+        setIsAddingTask(false)
     }
 
 
@@ -75,15 +173,15 @@ const CreateTask = ({ handleClick }) => {
                     <textarea 
                         autoComplete="off"
                         className="form-control" 
-                        placeholder="Leave a comment here" 
-                        id="floatingTextarea2" 
+                        placeholder="Description" 
+                        id="floatingTextarea" 
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required>
                         </textarea>
-                    <label htmlFor="floatingTextarea2">Comments</label>
+                    <label htmlFor="floatingTextarea2">Description</label>
                 </div>
-                <button type="submit" className="btn">Add Task</button>
+                <button type="submit" className="btn">{isEditingTask ? 'Update task' : 'Add Task'}</button>
             </form>
             <button type="submit" className="btn" onClick={back}>Back</button>
         </div>

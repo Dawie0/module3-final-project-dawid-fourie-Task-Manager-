@@ -28,7 +28,6 @@ const Weather = () => {
                         .then((response) => response.json())
                         .then((data) => {
                             const cityName = data[0].name
-                            console.log(cityName)
                             resolve(cityName)
                         })
                         .catch((error) => {

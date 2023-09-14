@@ -1,29 +1,50 @@
 /* eslint react/prop-types: 0 */
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
+import axios from "axios"
 import { ThemeContext } from '../contexts/ThemeContext'
-import { ValidUserContext } from "../contexts/UserContext"
+import { ValidUserContext } from '../contexts/UserContext'
 import './login.css'
 
 
 const Login = () => {
     const navigate = useNavigate()
     const { theme } = useContext(ThemeContext)
-    const { users, settingCurrentUser } = useContext(ValidUserContext)
+    const { updateCurrentUser, canLogIn, } = useContext(ValidUserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (canLogIn) {
+            navigate('/')
+        }
+    }, [canLogIn])
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const user = users.find((user) => user.email === email && user.password === password)
-        
-        if (user) {
-            settingCurrentUser(user)
-            navigate('/')   
+        if (email.trim() === '' || password.trim() === '') {
+            alert('Invalid Credentials')
+            return
         }
         else {
-            alert('Invalid email or password')
-        } 
+            try {
+                const response = await axios.post(`https://task-manager-backend-three.vercel.app/api/users/login`, {
+                    user: {
+                        email: email,
+                        password: password
+                    }
+                })
+    
+                const { token } = response.data
+    
+                localStorage.setItem('token', token)
+                updateCurrentUser(email)
+            }
+            catch (error) {
+                console.error(`Error during login:`, error)
+                alert('Error logging in! please try again later.')
+            }
+        }   
     }
 
     const toRegister = () => {
@@ -74,7 +95,7 @@ const Login = () => {
                     <button 
                             className="btn" 
                             onClick={toRegister}>
-                            Don't have an account?
+                            {`Don't have an account?`}
                     </button>
                     <a href="#" className="btn-link">Forgot your password?</a>
             </div>

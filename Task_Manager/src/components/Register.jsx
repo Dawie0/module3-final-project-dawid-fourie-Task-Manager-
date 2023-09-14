@@ -1,39 +1,59 @@
 /* eslint react/prop-types: 0 */
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../contexts/ThemeContext'
-import { ValidUserContext } from "../contexts/UserContext"
+import axios from "axios"
 import './login.css'
 
 const Register = () => {
     const { theme } = useContext(ThemeContext)
-    const { addUser } = useContext(ValidUserContext)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [retypePassword, setRetypePassword] = useState('')
+    const [registered, setRegistered] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (registered) {
+            navigate('/login')
+        }
+    }, [registered])
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        
-        const newUser = {
-            username,
-            email,
-            password
+        try {
+            if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
+                alert('Please fill in all fields')
+                return
+            }
+            if (password === retypePassword) {
+                const response = await axios.post(`https://task-manager-backend-three.vercel.app/api/users/register`, {
+                    user: {
+                        username: username,
+                        email: email,
+                        password: password
+                    }
+                })
+                if (response.data.message) {
+                    alert('Registration successful!')
+                } 
+            }
+            else {
+                alert('passwords do not match')
+            }
+
         }
-        if (password === retypePassword) {
-            addUser(newUser)
-        }
-        else {
-            alert('passwords do not match')
+        catch (error) {
+            console.log(error)
         }
         setUsername('')
         setEmail('')
         setPassword('')
         setRetypePassword('')
-        navigate('/login')
+        setRegistered(true)
     }
+
     const backToLogin = (event) => {
         event.preventDefault()
         navigate('/login')
