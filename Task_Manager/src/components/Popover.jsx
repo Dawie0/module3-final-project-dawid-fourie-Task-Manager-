@@ -12,7 +12,7 @@ const Popover = ({ tasks, holiday }) => {
         )}
         {tasks.length > 0 && (
           <div className="popover-content">
-            <p className="popover-subtitle">Tasks:</p>
+            <p className="popover-header">Tasks:</p>
             <div className="task-container">
               {tasks.map((task, index) => {
                 if (task.isFinished) {

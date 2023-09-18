@@ -16,7 +16,12 @@ const TaskTab =  ({ task, index }) => {
     }
     
     return (
-        <div className={index === taskIndex ? `row6 text-center ${task.isFinished ? `finished` : 'col-8'} mt-2 task-tab selected-task-${theme}` : `${task.isFinished ? `finished` : 'col-8'} row6 text-center mt-2 task-tab task-${theme}`} onClick={selectTask}>
+        <div className={
+            index === taskIndex ? `row6 text-center mt-2 task-tab ${task.isFinished ? `finished` : `selected-task-${theme}`} ` :
+            `row6 text-center mt-2 ${task.isFinished ? `finished` : `task-tab task-${theme}`}  `} 
+            onClick={selectTask}
+            // task.isFinished ? `row6 text-center
+        >
             <div className="col-2">
                 {task.task.priority}
             </div>

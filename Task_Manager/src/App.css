@@ -163,8 +163,10 @@
 }
 
 .finished {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: rgba(0, 128, 0, 0.3);
-    
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 5px );
     border-radius: 10px;
