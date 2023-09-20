@@ -2,6 +2,11 @@
     width: 100%;
     height: 98vh;
 }
+@media (max-width: 992px) {
+    .container-fluid {
+        height: 80vh;
+    }
+}
 .row {
     width: auto;
     height: 100%;
