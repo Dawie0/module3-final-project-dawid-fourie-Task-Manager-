@@ -69,16 +69,16 @@ const TaskControl = () => {
     
     return (
         <div className="row4 task-control align-items-center ">
-            <div className="me-1">
+            <div className="me-1 ctrl-button">
                 <button onClick={handleBack} className="btn2 d-lg-none">Back</button>
             </div>
-            <div className="me-1">
+            <div className="me-1 ctrl-button">
                 <button onClick={handleDelete} className="btn2">Delete Task</button>
             </div>
-            <div className="me-1">
+            <div className="me-1 ctrl-button">
                 <button onClick={handleUpdate} className="btn2">Update</button>
             </div>
-            <div className="me-1">
+            <div className="me-1 ctrl-button">
                 <button onClick={handleFinished} className="btn2">Finish Task</button>
             </div>
         </div>
